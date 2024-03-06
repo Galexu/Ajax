@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-2"></div>
+  </div>
+
+  <script>
+    let listaUsuarios = document.querySelector('.row');
+    let itenUsuario = '';
+
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json())
+      .then(function datosPersonas(usuarios) {
+        console.log(usuarios);
+        for (let i = 0; i < usuarios.length; i++) {
+          // itenUsuario += `<li>${usuarios[i].name}</li>`;
+          itenUsuario += `<div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">${usuarios[i].name}</h5>
+              <p class="card-text">
+                <address>
+                  ${usuarios[i].address.street}<br>
+                  ${usuarios[i].address.suite}<br>
+                  ${usuarios[i].address.city}<br>
+                  ${usuarios[i].address.geo.lat}<br>
+                  ${usuarios[i].address.geo.lng}<br>
+                </address>
+                  <button type="button" onclick="llamarAPI(${usuarios[i].address.geo.lat},${usuarios[i].address.geo.lng})" class="btn btn-success">Ver tiempo</button>
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary">${usuarios[i].website}</small>
+            </div>
+          </div>
+        </div>`;
+        }
+        listaUsuarios.innerHTML = itenUsuario;
+      });
+    function llamarAPI(lat, lon) {
+      console.log(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=5c7a4ba46d978668c5e97d62bd9038db`
+      );
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

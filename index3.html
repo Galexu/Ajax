@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+        De que cocktail deseas buscar informacion: <input type="text">
+        <button>
+            a
+        </button>
+    </div>
+    <div id="asd">
+
+    </div>
+
+    <script>
+        let boton = document.querySelector('button');
+        function busquedaCocktail() {
+            let busqueda = document.querySelector('input').value;
+            fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + busqueda)
+                .then(response => response.json())
+                .then(cocktail => {
+                    console.log(cocktail);
+                    document.querySelector("#asd").innerHTML = cocktail.drinks[0].strDrink;
+                })
+        }
+        boton.addEventListener("click", busquedaCocktail);
+
+
+        // let boton = document.querySelector("button")
+        // function asd() {
+        //     fetch("http://api.chiquito.ws")
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log(data);
+        //             document.querySelector("#asd").innerHTML = data.quote;
+        //         })
+        // }
+        // boton.addEventListener("click", asd);
+    </script>
+</body>
+
+</html>
